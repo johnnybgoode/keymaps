@@ -300,7 +300,7 @@
 / {
 //////////////////////////////////////////////////////////////////////////////
 //
-// urob’s “timeless” hrms
+// urobs "timeless" hrms
 //
 //////////////////////////////////////////////////////////////////////////////
 
@@ -356,14 +356,11 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 
   thumb: thumb_layer_access {
     compatible = "zmk,behavior-hold-tap";
-    flavor = THUMB_HOLDING_TYPE;
-    tapping-term-ms = <THUMB_HOLDING_TIME>;
-    quick-tap-ms = <THUMB_REPEAT_DECAY>; // enable repeat
+    flavor = "balanced";
+    tapping-term-ms = <150>;
+    quick-tap-ms = <100>; // enable repeat
     #binding-cells = <2>;
     bindings = <&mo>, <&kp>;
-    #ifdef THUMB_FORGIVENESS
-    retro-tap; // tap on standalone hold
-    #endif
   };
 
 //////////////////////////////////////////////////////////////////////////
@@ -508,19 +505,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
             &kp EQUAL       &kp N1       &kp N2       &kp N3     &kp N4  &kp N5                                                                                                             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0        &kp MINUS
               &kp TAB        &kp Q        &kp W        &kp F      &kp P   &kp B                                                                                                              &kp J        &kp L        &kp Y        &kp U     &kp SEMI         &kp BSLH
            &caps_word  &hml LSFT A  &hml LALT R  &hml LGUI S  &hml LCTL   &kp G                                                                                                              &kp M  &hmr LCTL N  &hmr RGUI E  &hmr RALT I  &hmr RALT O          &kp SQT
-            &kp GRAVE        &kp Z        &kp X        &kp C      &kp D   &kp V  &lt LAYER_Function ESC                &none  &lower  &lower                 &none                 &kp RET   &kp K        &kp H    &kp COMMA      &kp DOT     &kp FSLH        &kp PG_UP
+            &kp GRAVE        &kp Z        &kp X        &kp C      &kp D   &kp V  &lt LAYER_Function ESC                &none  &lower  &lower                 &none                 &kp RET   &kp K        &kp H    &kp COMMA      &kp DOT     &kp FSLH            &none
  &magic LAYER_Magic 0    &kp LSHFT     &kp LALT     &kp LGUI  &kp LCTRL           &lt LAYER_Cursor BSPC  &lt LAYER_Mouse DEL   &none   &none  &lt LAYER_Number TAB  &lt LAYER_Symbol SPACE            &kp RCTRL     &kp RGUI     &kp RALT    &kp RSHFT  &td_LAYER_Magic
             >;
         };
 
         layer_Cursor {
             bindings = <
-  &none     &none    &none      &none    &none                                                                                                    &none       &none        &none       &none       &none
-  &none     &none    &none      &none    &none   &none                                                                                &none       &none       &none        &none       &none       &none
-  &none     &none    &none      &none    &none   &none                                                                                &none   &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_UNDO  &kp K_REDO
-  &none  &kp BSPC  &kp TAB  &kp SPACE  &kp RET   &none                                                                                &none    &kp LEFT    &kp DOWN       &kp UP   &kp RIGHT       &none
-  &none     &none    &none      &none    &none   &none              &none   &none   &none  &select_none  &extend_line  &extend_word   &none    &kp HOME   &kp PG_DN    &kp PG_UP     &kp END       &none
-  &none    &trans   &trans     &trans   &trans          &tog LAYER_Cursor   &none   &none   &select_all  &select_line  &select_word          &kp K_FIND       &none        &none       &none       &none
+  &none     &none    &none      &none    &none                                                                                                       &none       &none        &none       &none       &none
+  &none     &none    &none      &none    &none   &none                                                                                    &none      &none       &none        &none       &none       &none
+  &none     &none    &none      &none    &none   &none                                                                                    &none  &kp K_CUT  &kp K_COPY  &kp K_PASTE  &kp K_UNDO  &kp K_REDO
+  &none  &kp BSPC  &kp TAB  &kp SPACE  &kp RET   &none                                                                                    &none   &kp LEFT    &kp DOWN       &kp UP   &kp RIGHT       &none
+  &none     &none    &none      &none    &none   &none              &none   &none   &none  &select_none  &extend_line  &extend_word  &kp K_FIND   &kp HOME   &kp PG_DN    &kp PG_UP     &kp END       &none
+  &none    &trans   &trans     &trans   &trans          &tog LAYER_Cursor   &none   &none   &select_all  &select_line  &select_word                  &none       &none        &none       &none       &none
             >;
         };
 
