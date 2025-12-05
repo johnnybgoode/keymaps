@@ -298,30 +298,35 @@
 
 /* Custom Defined Behaviors */
 / {
+
 //////////////////////////////////////////////////////////////////////////////
 //
 // urobs "timeless" hrms
 //
 //////////////////////////////////////////////////////////////////////////////
 
-#define QUICK_TAP_MS 175
+//#define QUICK_TAP_MS 175
 
-#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4
-#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4
-#ifndef LH2
-  #define THUMBS LH1 LH0 RH0 RH1         // Thumbs on 34 keys.
-#else
-  #define THUMBS LH2 LH1 LH0 RH0 RH1 RH2 // Thumbs on 36+ keys.
-#endif
+//#define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4
+//#define KEYS_R RT0 RT1 RT2 RT3 RT4 RM0 RM1 RM2 RM3 RM4 RB0 RB1 RB2 RB3 RB4
+// #ifndef LH2
+//  #define THUMBS LH1 LH0 RH0 RH1         // Thumbs on 34 keys.
+//#else
+//  #define THUMBS LH2 LH1 LH0 RH0 RH1 RH2 // Thumbs on 36+ keys.
+//#endif
 
-#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS)                                 \
-  ZMK_HOLD_TAP(NAME, bindings = <HOLD>, <TAP>; flavor = "balanced";            \
-               tapping-term-ms = <280>; quick-tap-ms = <QUICK_TAP_MS>;         \
-               require-prior-idle-ms = <150>; hold-trigger-on-release;         \
-               hold-trigger-key-positions = <TRIGGER_POS>;)
+//#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) ZMK_HOLD_TAP(NAME, \
+//  bindings = <HOLD>, <TAP>; 
+//  flavor = "balanced";
+//  tapping-term-ms = <280>; 
+//  quick-tap-ms = <QUICK_TAP_MS>;
+//  require-prior-idle-ms = <150>;
+//  hold-trigger-on-release;
+//  hold-trigger-key-positions = <TRIGGER_POS>;
+//)
 
-MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS) // Left-hand HRMs.
-MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
+//MAKE_HRM(hml, &kp, &kp, <KEYS_R THUMBS>) // Left-hand HRMs
+//MAKE_HRM(hmr, &kp, &kp, <KEYS_L THUMBS>) // Right-hand HRMs
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -329,19 +334,19 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 //
 //////////////////////////////////////////////////////////////////////////////
 
-  #define _C      LG
-  #define _A_TAB  LGUI
-  #define _G_TAB  LALT
-  #define _REDO   LG(LS(Z))
-  #define _POWER  K_POWER
-  #define _WORD   LA
-  #define _HOME   LG(LEFT)
-  #define _END    LG(RIGHT)
-  #define _EMOJI  LG(LC(SPACE))
-  #define _FILES  LS(LA(M))
-  #define _GLOBE  GLOBE
+  #define _C          LG
+  #define _A_TAB      LGUI
+  #define _G_TAB      LALT
+  #define _REDO       LG(LS(Z))
+  #define _POWER      K_POWER
+  #define _WORD       LA
+  #define _HOME       LG(LEFT)
+  #define _END        LG(RIGHT)
+  #define _EMOJI      LG(LC(SPACE))
+  #define _FILES      LS(LA(M))
+  #define _GLOBE      GLOBE
   #define _SLEEP      C_SLEEP
-  #define _LOCK   _C(LC(Q))
+  #define _LOCK       _C(LC(Q))
   #define _UNDO       _C(Z)
   #define _CUT        _C(X)
   #define _COPY       _C(C)
@@ -356,14 +361,16 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 //
 //////////////////////////////////////////////////////////////////////////
 
-  thumb: thumb_layer_access {
-    compatible = "zmk,behavior-hold-tap";
-    flavor = "balanced";
-    tapping-term-ms = <150>;
-    quick-tap-ms = <100>; // enable repeat
-    #binding-cells = <2>;
-    bindings = <&mo>, <&kp>;
-  };
+//behaviors {
+//  thumb: thumb_layer_access {
+//    compatible = "zmk,behavior-hold-tap";
+//    flavor = "balanced";
+//    tapping-term-ms = <150>;
+//    quick-tap-ms = <100>; // enable repeat
+//    #binding-cells = <2>;
+//    bindings = <&mo>, <&kp>;
+//  };
+//}
 
 //////////////////////////////////////////////////////////////////////////
 //
@@ -371,14 +378,14 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 // - https://getreuer.info/posts/keyboards/select-word/index.html
 //
 //////////////////////////////////////////////////////////////////////////
-
+macros {
   //
   // SELECT_WORD_DELAY defines how long the macro waits (milliseconds)
   // after moving the cursor before it selects a word.  A larger delay
   // may allow the macro to move to the next word upon each invocation.
   //
   #ifndef SELECT_WORD_DELAY
-  #define SELECT_WORD_DELAY 1
+    #define SELECT_WORD_DELAY 1
   #endif
 
   #define select_all kp _C(A)
@@ -469,6 +476,7 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
     bindings = <&kp LS(UP) &kp LS(_HOME)>;
   )
 };
+};
 
 /* Generated input processors */
 
@@ -489,6 +497,31 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
         ZMK_TD_LAYER(td_LAYER_Base, 0)
         ZMK_TD_LAYER(td_LAYER_Magic, 7)
 
+        // urob HRM Left
+        hml: hml {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            hold-trigger-key-positions = <POS_RH_C2R3 POS_RH_C3R3 POS_RH_C1R4 POS_RH_C2R4 POS_RH_C3R4 POS_RH_C4R4 POS_RH_C5R4 POS_RH_C2R5 POS_RH_C3R5 POS_RH_C4R5 POS_RH_C5R5 POS_RH_C6R5 POS_RH_C2R6 POS_RH_C3R6 POS_RH_C4R6 POS_RH_C5R6 POS_RH_C6R6 POS_RH_C4R3 POS_RH_C5R3 POS_RH_C6R3 POS_RH_C6R4 POS_RH_C1R3 POS_RH_C1R5 POS_RH_C3R2 POS_RH_C4R2 POS_RH_C5R2 POS_RH_C6R2 POS_RH_C1R2 POS_RH_C2R2 POS_RH_T1 POS_RH_T4 POS_RH_T2 POS_RH_T5 POS_RH_T6 POS_RH_T3>;
+            hold-trigger-on-release;
+        };
+
+        // urob HRM Right
+        hmr: hmr {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <280>;
+            bindings = <&kp>, <&kp>;
+            flavor = "balanced";
+            quick-tap-ms = <175>;
+            require-prior-idle-ms = <150>;
+            hold-trigger-key-positions = <POS_LH_C6R3 POS_LH_C5R3 POS_LH_C4R3 POS_LH_C3R3 POS_LH_C2R3 POS_LH_C1R3 POS_LH_C6R4 POS_LH_C5R4 POS_LH_C4R4 POS_LH_C3R4 POS_LH_C2R4 POS_LH_C1R4 POS_LH_C6R5 POS_LH_C5R5 POS_LH_C4R5 POS_LH_C3R5 POS_LH_C2R5 POS_LH_C1R5 POS_LH_T1 POS_LH_T2 POS_LH_T3 POS_LH_C6R6 POS_LH_C5R6 POS_LH_C4R6 POS_LH_C3R6 POS_LH_C2R6 POS_LH_T4 POS_LH_T5 POS_LH_T6 POS_LH_C6R2 POS_LH_C5R2 POS_LH_C4R2 POS_LH_C3R2 POS_LH_C2R2 POS_LH_C1R2>;
+            hold-trigger-on-release;
+        };
     };
 };
 
@@ -503,12 +536,12 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 
         layer_Base {
             bindings = <
-                &none        &none        &none        &none      &none                                                                                                                                   &none        &none        &none        &none            &none
-            &kp EQUAL       &kp N1       &kp N2       &kp N3     &kp N4  &kp N5                                                                                                             &kp N6       &kp N7       &kp N8       &kp N9       &kp N0        &kp MINUS
-              &kp TAB        &kp Q        &kp W        &kp F      &kp P   &kp B                                                                                                              &kp J        &kp L        &kp Y        &kp U     &kp SEMI         &kp BSLH
-           &caps_word  &hml LSFT A  &hml LALT R  &hml LGUI S  &hml LCTL   &kp G                                                                                                              &kp M  &hmr LCTL N  &hmr RGUI E  &hmr RALT I  &hmr RALT O          &kp SQT
-            &kp GRAVE        &kp Z        &kp X        &kp C      &kp D   &kp V  &lt LAYER_Function ESC                &none  &lower  &lower                 &none                 &kp RET   &kp K        &kp H    &kp COMMA      &kp DOT     &kp FSLH            &none
- &magic LAYER_Magic 0    &kp LSHFT     &kp LALT     &kp LGUI  &kp LCTRL           &lt LAYER_Cursor BSPC  &lt LAYER_Mouse DEL   &none   &none  &lt LAYER_Number TAB  &lt LAYER_Symbol SPACE            &kp RCTRL     &kp RGUI     &kp RALT    &kp RSHFT  &td_LAYER_Magic
+                &none         &none        &none        &none         &none                                                                                                                                    &none        &none        &none         &none            &none
+            &kp EQUAL        &kp N1       &kp N2       &kp N3        &kp N4  &kp N5                                                                                                             &kp N6        &kp N7       &kp N8       &kp N9        &kp N0        &kp MINUS
+              &kp TAB         &kp Q        &kp W        &kp F         &kp P   &kp B                                                                                                              &kp J         &kp L        &kp Y        &kp U      &kp SEMI         &kp BSLH
+           &caps_word  &hml LSHFT A  &hml LALT R  &hml LGUI S  &hml LCTRL T   &kp G                                                                                                              &kp M  &hmr RCTRL N  &hmr RGUI E  &hmr RALT I  &hmr RSHFT O          &kp SQT
+            &kp GRAVE         &kp Z        &kp X        &kp C         &kp D   &kp V  &lt LAYER_Function ESC                &none  &lower  &lower                 &none                 &kp RET   &kp K         &kp H    &kp COMMA      &kp DOT      &kp FSLH            &none
+ &magic LAYER_Magic 0     &kp LSHFT     &kp LALT     &kp LGUI     &kp LCTRL           &lt LAYER_Cursor BSPC  &lt LAYER_Mouse DEL   &none   &none  &lt LAYER_Number TAB  &lt LAYER_Symbol SPACE             &kp RCTRL     &kp RGUI     &kp RALT     &kp RSHFT  &td_LAYER_Magic
             >;
         };
 
@@ -547,23 +580,23 @@ MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS) // Right-hand HRMs.
 
         layer_Symbol {
             bindings = <
-         &none          &none         &none          &none          &none                                                                                               &none      &none    &none     &none   &none
-         &none          &none    &kp LS(N9)     &kp LS(N0)          &none         &none                                                                        &none    &none      &none    &none     &none   &none
-    &kp LS(N1)       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)       &kp RBKT  &kp LS(FSLH)                                                                        &none    &none      &none    &none     &none   &none
-    &kp LS(N3)     &kp LS(N6)  &kp LS(BSLH)  &kp LS(MINUS)     &kp LS(N4)    &kp LS(N8)                                                                        &none  &kp RET  &kp SPACE  &kp TAB  &kp BSPC   &none
- &kp LS(GRAVE)  &kp LS(COMMA)     &kp EQUAL      &kp MINUS    &kp LS(DOT)      &kp FSLH    &kp BSLH  &kp LS(SEMI)   &none   &none   &none              &none   &none    &none      &none    &none     &none   &none
-         &none     &kp LS(N7)       &kp SQT    &kp LS(SQT)  &kp LS(EQUAL)                &kp LS(N5)    &kp LS(N2)   &none   &none   &none  &tog LAYER_Symbol            &none      &none    &none     &none   &none
+         &none          &none         &none          &none          &none                                                                                                      &none            &none          &none            &none   &none
+         &none          &none    &kp LS(N9)     &kp LS(N0)          &none         &none                                                                        &none           &none            &none          &none            &none   &none
+    &kp LS(N1)       &kp LBKT  &kp LS(LBKT)   &kp LS(RBKT)       &kp RBKT  &kp LS(FSLH)                                                                        &none           &none            &none          &none            &none   &none
+    &kp LS(N3)     &kp LS(N6)  &kp LS(BSLH)  &kp LS(MINUS)     &kp LS(N4)    &kp LS(N8)                                                                        &none  &hmr RCTRL RET  &hmr RGUI SPACE  &hmr RALT TAB  &hmr RSHFT BSPC   &none
+ &kp LS(GRAVE)  &kp LS(COMMA)     &kp EQUAL      &kp MINUS    &kp LS(DOT)      &kp FSLH    &kp BSLH  &kp LS(SEMI)   &none   &none   &none              &none   &none           &none            &none          &none            &none   &none
+         &none     &kp LS(N7)       &kp SQT    &kp LS(SQT)  &kp LS(EQUAL)                &kp LS(N5)    &kp LS(N2)   &none   &none   &none  &tog LAYER_Symbol                   &none            &none          &none            &none   &none
             >;
         };
 
         layer_Number {
             bindings = <
-  &none            &none         &none      &none       &none                                                                                   &none      &none    &none     &none   &none
-  &none  &kp KP_MULTIPLY  &kp KP_SLASH      &none  &kp KP_NUM  &kp LS(N9)                                                              &none    &none      &none    &none     &none   &none
-  &none     &kp KP_MINUS     &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp LS(N0)                                                              &none    &none      &none    &none     &none   &none
-  &none      &kp KP_PLUS     &kp KP_N4  &kp KP_N5   &kp KP_N6  &kp LS(N5)                                                              &none  &kp RET  &kp SPACE  &kp TAB  &kp BSPC   &none
-  &none     &kp KP_ENTER     &kp KP_N1  &kp KP_N2   &kp KP_N3   &kp COMMA   &none   &none   &none   &none              &none   &none   &none    &none      &none    &none     &none   &none
-  &none     &kp KP_ENTER    &kp KP_DOT  &kp KP_N0   &kp KP_N0              &kp N0   &none   &none   &none  &tog LAYER_Number   &none           &trans     &trans   &trans    &trans   &none
+  &none            &none         &none      &none       &none                                                                                          &none            &none          &none            &none   &none
+  &none  &kp KP_MULTIPLY  &kp KP_SLASH      &none  &kp KP_NUM  &kp LS(N9)                                                              &none           &none            &none          &none            &none   &none
+  &none     &kp KP_MINUS     &kp KP_N7  &kp KP_N8   &kp KP_N9  &kp LS(N0)                                                              &none           &none            &none          &none            &none   &none
+  &none      &kp KP_PLUS     &kp KP_N4  &kp KP_N5   &kp KP_N6  &kp LS(N5)                                                              &none  &hmr RCTRL RET  &hmr RGUI SPACE  &hmr RALT TAB  &hmr RSHFT BSPC   &none
+  &none     &kp KP_ENTER     &kp KP_N1  &kp KP_N2   &kp KP_N3   &kp COMMA   &none   &none   &none   &none              &none   &none   &none           &none            &none          &none            &none   &none
+  &none     &kp KP_ENTER    &kp KP_DOT  &kp KP_N0   &kp KP_N0              &kp N0   &none   &none   &none  &tog LAYER_Number   &none                  &trans           &trans         &trans           &trans   &none
             >;
         };
 
